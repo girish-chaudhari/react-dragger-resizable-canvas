@@ -23,13 +23,14 @@ interface CanvasWindowProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const DEFAULT_POSITION: Position = { x: 100, y: 100 };
 const DEFAULT_SIZE: Size = { width: 300, height: 200 };
+const DEFAULT_TITLE = "Canvas Window";
 
 export function CanvasWindow({
   className,
   isPortalDisabled = true,
   defaultSize = DEFAULT_SIZE,
   defaultPosition = DEFAULT_POSITION,
-  title = "Canvas Window",
+  title = DEFAULT_TITLE,
   isOpen = true,
   ...restProps
 }: CanvasWindowProps) {
@@ -107,7 +108,7 @@ export function CanvasWindow({
 
   const handleCloseWindow = () => {
     setIsOpened(false);
-  }
+  };
 
   const modalContent = (
     <div
@@ -130,9 +131,9 @@ export function CanvasWindow({
     </div>
   );
 
-  const canvasWindow =  isPortalDisabled
+  const canvasWindow = isPortalDisabled
     ? ReactDOM.createPortal(modalContent, document.body)
     : modalContent;
 
-    return isOpened ? canvasWindow : null;
+  return isOpened ? canvasWindow : null;
 }

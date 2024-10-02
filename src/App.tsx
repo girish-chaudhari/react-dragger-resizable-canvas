@@ -5,7 +5,7 @@ import "./App.css";
 import { CanvasWindow } from "../";
 
 function App() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const handleClick = () => {
     setOpen((open) => !open);
@@ -27,6 +27,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+        <input type="text" />
         <CanvasWindow
           isOpen={open}
           title="My window"
