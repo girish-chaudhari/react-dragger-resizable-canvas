@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "./styles.module.css";
 import CloseIcon from "./CloseIcon";
@@ -20,6 +20,10 @@ interface CanvasWindowProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   isOpen?: boolean;
   children?: React.ReactNode;
+  isDraggable?: boolean;
+  isResizable?: boolean;
+  footer?: React.ReactNode;
+  onClose?: Dispatch<SetStateAction<boolean>> | undefined;
 }
 
 const DEFAULT_POSITION: Position = { x: 100, y: 100 };
@@ -32,8 +36,12 @@ export function CanvasWindow({
   defaultSize = DEFAULT_SIZE,
   defaultPosition = DEFAULT_POSITION,
   title = DEFAULT_TITLE,
+  footer = null,
   isOpen = true,
   children = null,
+  isDraggable = true,
+  isResizable = true,
+  onClose,
   ...restProps
 }: CanvasWindowProps) {
   const [position, setPosition] = useState<Position>(defaultPosition);
@@ -43,6 +51,7 @@ export function CanvasWindow({
   const headerRef = useRef<HTMLDivElement>(null);
 
   const startDrag = (e: React.MouseEvent) => {
+    if (!isDraggable) return;
     e.preventDefault();
     const initialX = e.clientX;
     const initialY = e.clientY;
@@ -76,6 +85,7 @@ export function CanvasWindow({
   };
 
   const startResize = (e: React.MouseEvent) => {
+    if (!isResizable) return;
     e.preventDefault();
     const initialWidth = size.width;
     const initialHeight = size.height;
@@ -110,6 +120,7 @@ export function CanvasWindow({
   };
 
   const handleCloseWindow = () => {
+    onClose && onClose(false);
     setIsOpened(false);
   };
 
@@ -132,14 +143,16 @@ export function CanvasWindow({
       ref={modalRef}
       {...restProps}
     >
-      <div className={styles.dragger_header} ref={headerRef}>
+      <div className={styles.dragger_header} ref={headerRef}
+      onMouseDown={startDrag}
+      >
         <h4 className={styles.dragger_title}>{title}</h4>
         <span className={styles.close_icon}>
           <CloseIcon onClick={handleCloseWindow} />
         </span>
       </div>
-      <div className={styles.draggable} onMouseDown={startDrag} />
-      <div className={styles.resizable} onMouseDown={startResize} />
+      {/* <div className={styles.draggable} onMouseDown={startDrag} /> */}
+      {isResizable && <div className={styles.resizable} onMouseDown={startResize} />}
       <div
         className={styles.dragger_content}
         style={{
@@ -147,11 +160,12 @@ export function CanvasWindow({
         }}
       >
         {children}
+      {footer && <div className={styles.dragger_footer}>{footer}</div>}
       </div>
     </div>
   );
 
-  const canvasWindow = isPortalDisabled
+  const canvasWindow = !isPortalDisabled
     ? ReactDOM.createPortal(modalContent, document.body)
     : modalContent;
 

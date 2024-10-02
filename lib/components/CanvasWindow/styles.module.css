@@ -78,3 +78,10 @@
   padding: 0 0.5rem; /* compact padding */
   overflow: auto;
 }
+
+.dragger_footer {
+  background-color: #edf2f7; /* shadcn footer background color */
+  color: #2d3748; /* shadcn footer text color */
+  padding: 0.5rem; /* compact padding */
+  border-top: 1px solid #e2e8f0; /* shadcn border color */
+}
