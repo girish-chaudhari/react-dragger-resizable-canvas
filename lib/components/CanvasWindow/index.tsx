@@ -19,6 +19,7 @@ interface CanvasWindowProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultSize?: Size;
   title?: string;
   isOpen?: boolean;
+  children?: React.ReactNode;
 }
 
 const DEFAULT_POSITION: Position = { x: 100, y: 100 };
@@ -32,12 +33,14 @@ export function CanvasWindow({
   defaultPosition = DEFAULT_POSITION,
   title = DEFAULT_TITLE,
   isOpen = true,
+  children = null,
   ...restProps
 }: CanvasWindowProps) {
   const [position, setPosition] = useState<Position>(defaultPosition);
   const [size, setSize] = useState<Size>(defaultSize);
   const [isOpened, setIsOpened] = useState<boolean>(isOpen);
   const modalRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   const startDrag = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -110,6 +113,13 @@ export function CanvasWindow({
     setIsOpened(false);
   };
 
+  const convertRemToPixels = (rem: number) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+  const headerHeight = headerRef.current?.clientHeight 
+    ? headerRef.current.clientHeight - convertRemToPixels(0.5) 
+    : 45;
+
+
   const modalContent = (
     <div
       className={`${className} ${styles.canvasWindow}`}
@@ -122,7 +132,7 @@ export function CanvasWindow({
       ref={modalRef}
       {...restProps}
     >
-      <div className={styles.dragger_header}>
+      <div className={styles.dragger_header} ref={headerRef}>
         <h4 className={styles.dragger_title}>{title}</h4>
         <span className={styles.close_icon}>
           <CloseIcon onClick={handleCloseWindow} />
@@ -130,6 +140,14 @@ export function CanvasWindow({
       </div>
       <div className={styles.draggable} onMouseDown={startDrag} />
       <div className={styles.resizable} onMouseDown={startResize} />
+      <div
+        className={styles.dragger_content}
+        style={{
+          height: `calc(100% - ${headerHeight}px)`,
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 

@@ -52,5 +52,8 @@
     "resizable",
     "component",
     "library"
-  ]
+  ],
+  "dependencies": {
+    "@gdev0007/react-dragger-resizable": "^0.0.2"
+  }
 }
