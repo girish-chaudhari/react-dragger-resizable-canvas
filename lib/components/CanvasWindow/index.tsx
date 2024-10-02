@@ -18,6 +18,7 @@ interface CanvasWindowProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultPosition?: Position;
   defaultSize?: Size;
   title?: string;
+  isOpen?: boolean;
 }
 
 const DEFAULT_POSITION: Position = { x: 100, y: 100 };
@@ -29,10 +30,12 @@ export function CanvasWindow({
   defaultSize = DEFAULT_SIZE,
   defaultPosition = DEFAULT_POSITION,
   title = "Canvas Window",
+  isOpen = true,
   ...restProps
 }: CanvasWindowProps) {
   const [position, setPosition] = useState<Position>(defaultPosition);
   const [size, setSize] = useState<Size>(defaultSize);
+  const [isOpened, setIsOpened] = useState<boolean>(isOpen);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const startDrag = (e: React.MouseEvent) => {
@@ -102,6 +105,10 @@ export function CanvasWindow({
     document.addEventListener("mouseup", stopResize, { once: true });
   };
 
+  const handleCloseWindow = () => {
+    setIsOpened(false);
+  }
+
   const modalContent = (
     <div
       className={`${className} ${styles.canvasWindow}`}
@@ -116,14 +123,16 @@ export function CanvasWindow({
     >
       <div className="dragger_header">
         <h3>{title}</h3>
-        <CloseIcon />
+        <CloseIcon onClick={handleCloseWindow} />
       </div>
       <div className={styles.draggable} onMouseDown={startDrag} />
       <div className={styles.resizable} onMouseDown={startResize} />
     </div>
   );
 
-  return isPortalDisabled
+  const canvasWindow =  isPortalDisabled
     ? ReactDOM.createPortal(modalContent, document.body)
     : modalContent;
+
+    return isOpened ? canvasWindow : null;
 }
