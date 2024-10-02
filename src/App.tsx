@@ -11,6 +11,8 @@ function App() {
     setOpen((open) => !open);
   };
 
+  const LOREM_CONETNT = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus ac libero ultricies Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus ac libero ultricies `
+
   return (
     <>
       <div>
@@ -30,7 +32,7 @@ function App() {
         <input type="text" />
         <CanvasWindow
           isOpen={open}
-          title="My window"
+          title={LOREM_CONETNT}
           isPortalDisabled={true}
           defaultSize={{ width: 800, height: 400 }}
         />

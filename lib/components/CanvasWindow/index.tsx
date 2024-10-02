@@ -26,7 +26,7 @@ const DEFAULT_SIZE: Size = { width: 300, height: 200 };
 const DEFAULT_TITLE = "Canvas Window";
 
 export function CanvasWindow({
-  className,
+  className = "",
   isPortalDisabled = true,
   defaultSize = DEFAULT_SIZE,
   defaultPosition = DEFAULT_POSITION,
@@ -122,9 +122,11 @@ export function CanvasWindow({
       ref={modalRef}
       {...restProps}
     >
-      <div className="dragger_header">
-        <h3>{title}</h3>
-        <CloseIcon onClick={handleCloseWindow} />
+      <div className={styles.dragger_header}>
+        <h4 className={styles.dragger_title}>{title}</h4>
+        <span className={styles.close_icon}>
+          <CloseIcon onClick={handleCloseWindow} />
+        </span>
       </div>
       <div className={styles.draggable} onMouseDown={startDrag} />
       <div className={styles.resizable} onMouseDown={startResize} />
