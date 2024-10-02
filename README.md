@@ -37,11 +37,22 @@ export default App;
 
 The `CanvasWindow` component accepts the following props:
 
+---
+
 | Prop Name         | Type         | Default | Description                                            |
 |-------------------|--------------|---------|--------------------------------------------------------|
 | className         | string       | ''      | Additional class names to apply to the window.         |
 | isPortalDisabled  | boolean      | true    | Whether to disable the use of a portal for rendering the window. |
+| defaultPosition   | Position     |         | The default position of the window.                    |
+| defaultSize       | Size         |         | The default size of the window.                        |
+| title             | string       |         | The title of the window.                               |
+| isOpen            | boolean      |         | Whether the window is open.                            |
 | children          | ReactNode    | null    | The content to be displayed inside the window.         |
+| isDraggable       | boolean      |         | Whether the window is draggable.                       |
+| isResizable       | boolean      |         | Whether the window is resizable.                       |
+| footer            | ReactNode    |         | The footer content of the window.                      |
+| onClose           | Dispatch<SetStateAction<boolean>> | undefined | Callback function to handle window close action.       |
+
 
 ## Example
 
