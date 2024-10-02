@@ -108,6 +108,5 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 This package was inspired by the need for a simple, resizable, and draggable window component in React applications.
 
 A big thank you to [receter](https://github.com/receter) for their contributions and support!
----
 
 You can replace the content of your current README.md with the above text.
