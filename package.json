@@ -1,6 +1,7 @@
 {
   "name": "@gdev0007/react-dragger-resizable",
   "author": "Girish Chaudhari",
+  "description": "A resizable and draggable canvas component",
   "private": false,
   "version": "0.0.2",
   "type": "module",
