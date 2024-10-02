@@ -1,48 +1,112 @@
-<img width="500" alt="ViteReactComponentLibrary" src="https://github.com/receter/my-component-library/assets/2504695/dbb53036-d228-477b-8cf8-f61cd6130776">
+Here is a detailed README.md for your package `react-resize-draggable-window` with all necessary information, including installation, usage, and props:
 
-# A simple (demo) react component library
-This repository was published together with an article on [how to create a react component library](https://dev.to/receter/how-to-create-a-react-component-library-using-vites-library-mode-4lma) using Vite's library mode.
+---
 
-Here is another repo that consumes this libarary: https://github.com/receter/my-component-library-consumer
+# react-resize-draggable-window
 
-The demo library on npm: https://www.npmjs.com/package/@receter/my-component-library
+## Overview
+
+A simple, resizable, and draggable window component for React applications.
 
 ## Installation
-You can install it with npm (don't expect much fanciness):
+
+You can install it with npm:
+
 ```bash
-npm i @receter/my-component-library
+npm i react-resize-draggable-window
 ```
 
 ## Usage
+
+Here's an example of how to use the `CanvasWindow` component in your React application:
+
 ```javascript
-import { Button, Label, Input } from '@receter/my-component-library';
-```
-See this file for an example on using this library: https://github.com/receter/my-component-library-consumer/blob/main/src/App.tsx
+import React from 'react';
+import CanvasWindow from 'react-resize-draggable-window';
 
-## React + TypeScript + Vite
+const App = () => (
+  <CanvasWindow className="custom-class" isPortalDisabled={false}>
+    <p>Your content here</p>
+  </CanvasWindow>
+);
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-### Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+export default App;
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Props
+
+The `CanvasWindow` component accepts the following props:
+
+| Prop Name         | Type         | Default | Description                                            |
+|-------------------|--------------|---------|--------------------------------------------------------|
+| className         | string       | ''      | Additional class names to apply to the window.         |
+| isPortalDisabled  | boolean      | true    | Whether to disable the use of a portal for rendering the window. |
+| children          | ReactNode    | null    | The content to be displayed inside the window.         |
+
+## Example
+
+Here's a more detailed example demonstrating the use of the `CanvasWindow` component with additional props:
+
+```javascript
+import React from 'react';
+import CanvasWindow from 'react-resize-draggable-window';
+import './App.css';
+
+const App = () => (
+  <CanvasWindow className="custom-class" isPortalDisabled={false}>
+    <div>
+      <h1>Resizable and Draggable Window</h1>
+      <p>This is a resizable and draggable window component.</p>
+    </div>
+  </CanvasWindow>
+);
+
+export default App;
+```
+
+## Custom Styles
+
+You can apply custom styles to the `CanvasWindow` component by passing a `className` prop and defining the styles in your CSS file. Here's an example:
+
+```css
+/* App.css */
+.custom-class {
+  border: 2px solid #000;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+```
+
+## Development
+
+To run the development server and see the component in action, use the following commands:
+
+```bash
+npm install
+npm start
+```
+
+## Build
+
+To build the package for production, use the following command:
+
+```bash
+npm run build
+```
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## Acknowledgements
+
+This package was inspired by the need for a simple, resizable, and draggable window component in React applications.
+
+---
+
+You can replace the content of your current README.md with the above text.
