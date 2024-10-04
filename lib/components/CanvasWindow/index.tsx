@@ -29,6 +29,7 @@ interface CanvasWindowProps extends React.HTMLAttributes<HTMLDivElement> {
   isResizable?: boolean;
   footer?: React.ReactNode;
   onClose?: Dispatch<SetStateAction<boolean>> | undefined;
+  shouldScroll?: boolean;
 }
 
 const DEFAULT_POSITION: Position = { x: 100, y: 100 };
@@ -47,6 +48,7 @@ export function CanvasWindow({
   isDraggable = true,
   isResizable = true,
   onClose,
+  shouldScroll = false,
   ...restProps
 }: CanvasWindowProps) {
   const [position, setPosition] = useState<Position>(defaultPosition);
@@ -150,6 +152,7 @@ const calculateContentHeight = headerHeight + footerHeight;
         left: position.x,
         width: size.width,
         height: size.height,
+        position: shouldScroll ? "absolute": 'fixed',
       }}
       ref={modalRef}
       {...restProps}

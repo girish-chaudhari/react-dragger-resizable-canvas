@@ -39,8 +39,9 @@ function App() {
           isOpen={open}
           onClose={setOpen}
           title={LOREM_CONETNT}
-          isPortalDisabled={true}
+          isPortalDisabled={false}
           defaultSize={{ width: 800, height: 400 }}
+          shouldScroll={true}
           children={
             <div style={{color:'black'}}>
               Canvas Window Content
