@@ -1,4 +1,9 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect, useRef,
+  useState
+} from "react";
 import ReactDOM from "react-dom";
 import styles from "./styles.module.css";
 import CloseIcon from "./CloseIcon";
@@ -124,12 +129,16 @@ export function CanvasWindow({
     setIsOpened(false);
   };
 
-  const convertRemToPixels = (rem: number) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+  const convertRemToPixels = (rem: number) =>
+    rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 
-  const headerHeight = headerRef.current?.clientHeight 
-    ? headerRef.current.clientHeight - convertRemToPixels(0.5) 
+  const headerHeight = headerRef.current?.clientHeight
+    ? headerRef.current.clientHeight - convertRemToPixels(0.5)
     : 45;
 
+  useEffect(() => {
+     setIsOpened(isOpen);
+  },[isOpen]);
 
   const modalContent = (
     <div
@@ -143,8 +152,10 @@ export function CanvasWindow({
       ref={modalRef}
       {...restProps}
     >
-      <div className={styles.dragger_header} ref={headerRef}
-      onMouseDown={startDrag}
+      <div
+        className={styles.dragger_header}
+        ref={headerRef}
+        onMouseDown={startDrag}
       >
         <h4 className={styles.dragger_title}>{title}</h4>
         <span className={styles.close_icon}>
@@ -152,7 +163,9 @@ export function CanvasWindow({
         </span>
       </div>
       {/* <div className={styles.draggable} onMouseDown={startDrag} /> */}
-      {isResizable && <div className={styles.resizable} onMouseDown={startResize} />}
+      {isResizable && (
+        <div className={styles.resizable} onMouseDown={startResize} />
+      )}
       <div
         className={styles.dragger_content}
         style={{
@@ -160,7 +173,7 @@ export function CanvasWindow({
         }}
       >
         {children}
-      {footer && <div className={styles.dragger_footer}>{footer}</div>}
+        {footer && <div className={styles.dragger_footer}>{footer}</div>}
       </div>
     </div>
   );
