@@ -5,6 +5,7 @@ on:
   push:
     tags:
       - 'v*.*.*' # Example: Matches v1.0.0, v2.1.0, etc.
+      - 'v*.*.*-beta*' # Example: Matches v1.0.0-beta, v2.1.0-beta1, etc.
 
 jobs:
   publish:
