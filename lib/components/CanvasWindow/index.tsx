@@ -54,6 +54,7 @@ export function CanvasWindow({
   const [isOpened, setIsOpened] = useState<boolean>(isOpen);
   const modalRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   const startDrag = (e: React.MouseEvent) => {
     if (!isDraggable) return;
@@ -129,12 +130,13 @@ export function CanvasWindow({
     setIsOpened(false);
   };
 
-  const convertRemToPixels = (rem: number) =>
-    rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-
   const headerHeight = headerRef.current?.clientHeight
-    ? headerRef.current.clientHeight - convertRemToPixels(0.5)
+    ? headerRef.current.clientHeight 
     : 45;
+  const footerHeight = footerRef.current?.clientHeight
+    ? footerRef.current.clientHeight 
+    : 45;
+const calculateContentHeight = headerHeight + footerHeight;
 
   useEffect(() => {
      setIsOpened(isOpen);
@@ -169,11 +171,11 @@ export function CanvasWindow({
       <div
         className={styles.dragger_content}
         style={{
-          height: `calc(100% - ${headerHeight}px)`,
+          height: `calc(100% - ${calculateContentHeight}px)`,
         }}
       >
         {children}
-        {footer && <div className={styles.dragger_footer}>{footer}</div>}
+        {footer && <div className={styles.dragger_footer} ref={footerRef}>{footer}</div>}
       </div>
     </div>
   );
